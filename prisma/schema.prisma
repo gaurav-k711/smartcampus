@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(STUDENT)
+  department    String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  bookings      Booking[]
+  notifications Notification[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model ResourceCategory {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  resources   Resource[]
+
+  @@index([name])
+}
+
+model Resource {
+  id               String             @id @default(cuid())
+  name             String
+  categoryId       String
+  description      String
+  location         String
+  capacity         Int
+  status           ResourceStatus     @default(AVAILABLE)
+  requiresApproval Boolean            @default(false)
+  imageUrl         String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  bookings         Booking[]
+  predictions      DemandPrediction[]
+  category         ResourceCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@index([categoryId])
+  @@index([status])
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  userId          String
+  resourceId      String
+  date            String
+  startTime       String
+  endTime         String
+  purpose         String
+  status          BookingStatus @default(PENDING)
+  rejectionReason String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  resource        Resource      @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([resourceId, date])
+  @@index([userId])
+  @@index([status])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      NotificationType @default(INFO)
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+}
+
+model DemandPrediction {
+  id          String      @id @default(cuid())
+  resourceId  String
+  date        String
+  timeSlot    String
+  demandScore Int
+  demandLevel DemandLevel
+  confidence  Int
+  createdAt   DateTime    @default(now())
+  resource    Resource    @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  @@index([resourceId, date])
+}
+
+enum Role {
+  STUDENT
+  FACULTY
+  ADMIN
+}
+
+enum ResourceStatus {
+  AVAILABLE
+  MAINTENANCE
+  INACTIVE
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+enum DemandLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum NotificationType {
+  INFO
+  SUCCESS
+  WARNING
+  ALERT
+}
