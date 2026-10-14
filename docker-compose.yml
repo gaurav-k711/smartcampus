@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: smartcampus-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: smartcampus
+    ports:
+      - "5434:5432"
+    volumes:
+      - smartcampus_pgdata:/var/lib/postgresql/data
+
+volumes:
+  smartcampus_pgdata:

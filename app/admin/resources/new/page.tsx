@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, PlusCircle } from "lucide-react";
 
 // Categories rarely change — 30-second revalidation is fine
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 
 
 export default async function NewResourcePage() {

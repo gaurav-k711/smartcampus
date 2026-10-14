@@ -15,9 +15,9 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+export const dynamic = "force-dynamic";
 
 // 15-second revalidation — admin dashboard needs near-real-time data
-export const revalidate = 15;
 
 
 export default async function AdminDashboardPage() {

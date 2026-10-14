@@ -3,7 +3,7 @@ import ResourceTableClient from "@/components/admin/ResourceTableClient";
 import { Layers } from "lucide-react";
 
 // Resources rarely change — 30-second revalidation is plenty
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 
 
 export default async function AdminResourcesPage() {

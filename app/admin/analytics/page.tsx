@@ -3,7 +3,7 @@ import AnalyticsDashboardClient from "@/components/admin/AnalyticsDashboardClien
 import { BarChart3 } from "lucide-react";
 
 // Analytics are lagging indicators — 60-second cache is appropriate
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 
 export default async function AdminAnalyticsPage() {

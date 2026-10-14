@@ -4,7 +4,7 @@ import DemandMatrixClient from "@/components/admin/DemandMatrixClient";
 import { Sparkles } from "lucide-react";
 
 // Predictions are computed at request time but cached for 30 seconds
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 
 
 export default async function AdminPredictionsPage() {

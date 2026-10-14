@@ -5,7 +5,7 @@ import UserManagementClient from "@/components/admin/UserManagementClient";
 import { Users } from "lucide-react";
 
 // User list changes infrequently — 30-second cache is safe
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 
 
 export default async function AdminUsersPage() {

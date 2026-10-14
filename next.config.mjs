@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
+  output: "standalone",
+
   reactStrictMode: true,
+
   images: {
     remotePatterns: [
       {
@@ -9,15 +13,18 @@ const nextConfig = {
       },
     ],
   },
-  // Keep compiled pages warm in memory so switching pages doesn't trigger recompilation delays
+
+  // Keep compiled pages warm in memory
   onDemandEntries: {
-    maxInactiveAge: 1000 * 60 * 60 * 2, // 2 hours
+    maxInactiveAge: 1000 * 60 * 60 * 2,
     pagesBufferLength: 60,
   },
-  // Tree-shake large icon and utility libraries — only bundle what's used
+
+  // Optimize large icon and utility libraries
   experimental: {
     optimizePackageImports: ["lucide-react", "date-fns"],
   },
+
   // Compress responses with gzip
   compress: true,
 };

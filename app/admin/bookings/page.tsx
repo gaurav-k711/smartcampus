@@ -3,7 +3,7 @@ import AdminBookingsClient from "@/components/admin/AdminBookingsClient";
 import { CalendarCheck } from "lucide-react";
 
 // 15-second revalidation — fast enough for admin without hitting DB every click
-export const revalidate = 15;
+export const dynamic = "force-dynamic";
 
 
 export default async function AdminBookingsPage() {
