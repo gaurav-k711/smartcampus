@@ -9,13 +9,8 @@ declare global {
 export const prisma =
   global.prisma ||
   new PrismaClient({
-    // Only log errors — query/warn logs add significant I/O latency in dev
+    // Only log errors in all environments to reduce I/O overhead
     log: ["error"],
-    datasources: {
-      db: {
-        url: process.env.DATABASE_URL,
-      },
-    },
   });
 
 if (process.env.NODE_ENV !== "production") {

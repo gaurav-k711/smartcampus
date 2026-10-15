@@ -71,5 +71,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || "smartcampus_secret_key_production_2026",
+  secret: process.env.NEXTAUTH_SECRET,
 };

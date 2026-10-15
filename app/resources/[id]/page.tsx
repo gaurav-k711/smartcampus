@@ -10,15 +10,15 @@ export const revalidate = 30;
 
 
 interface ResourceDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function ResourceDetailPage({
   params,
 }: ResourceDetailPageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const todayISO = new Date().toISOString().split("T")[0];
 

@@ -21,17 +21,17 @@ export const revalidate = 60;
 
 
 interface ResourcesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     search?: string;
     category?: string;
     status?: string;
     minCapacity?: string;
     location?: string;
-  };
+  }>;
 }
 
 export default async function ResourcesPage({ searchParams }: ResourcesPageProps) {
-  const { search, category, status, minCapacity, location } = searchParams;
+  const { search, category, status, minCapacity, location } = await searchParams;
 
   // 1. Build where query filter
   const where: any = {};

@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { predictResourceDemand } from "@/lib/services/demandForecaster";
 import { getSmartAlternatives } from "@/lib/services/recommendationService";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
